@@ -1,9 +1,10 @@
 # A general lightweight global modeling framework for three-dimensional seismic exploration
 ## Introduction
-Code implementation of LMGM and its training and testing process.
+Code implementation of lightweight Mamba-based global modeling (LMGM) framework
+and its training and testing process.
 
-This repository was completed on Sept. 14, 2026 by Changxin Wei, 
-a PhD candidate at the College of Instrumentation and Electrical Engineering, Jilin University，
+This repository was completed on Sept. 16, 2026 by Changxin Wei, 
+a PhD candidate at the College of Instrumentation and Electrical Engineering, Jilin University,
 Changchun, China.
 
 If there are any problems with this project, please feel free to contact cxwei24@mails.jlu.edu.cn, 
@@ -11,8 +12,8 @@ or you may ask ChatGPT for help.
 
 **Attention**
 
-**The training datasets are not provided here. You may visit http://wiki.seg.org for open datasets
-that appear in our paper，or you can get a copy of processed '.mat' files by contacting cxwei24@mails.jlu.edu.cn.**
+**Only part of SEG C3 45shots dataset are provided here. You may visit http://wiki.seg.org for more open datasets
+that appear in our paper, or you can get a copy of processed '.mat' files by contacting cxwei24@mails.jlu.edu.cn.**
 
 All the provided seismic datasets are saved in '.mat' format for simplicity. If you intend to use your 
 own datasets, please make sure the filename is consistent with the variable name inside the '.mat' file.
@@ -60,7 +61,7 @@ DMINet_project
 │   │   └── test                    # data for testing
 │   │       └── shot25.mat                 
 │   │           
-│   ├── parihaka                    # field post-stack data 
+│   ├── parihaka                    # field post-stack data (not provided here)
 │   │   ├── train                   
 │   │   │   └── parihaka_train.mat           
 │   │   └── test                    
@@ -290,13 +291,13 @@ After finishing **Step 1** and **Step 2**, you may start training.
 
 Training command:
 ```shell
-bash ./shell_scripts/train.sh [net] [path to prepared dataset]
+bash ./shell_scripts/train.sh [net] [filename of your prepared dataset]
 ```
 where
 
 `[net]: "ANN", "FAT" or "LMGM"`
 
-`[path to prepared dataset]: modify this to the filename 
+`[filename of your prepared dataset]: modify this to the filename 
 (without the file extension) of your prepared dataset`
 
 For example,
@@ -314,8 +315,8 @@ You can modify them for multi-GPU training.
 ### 4. Testing
 After finishing training, test them using:
 ```shell
-bash ./shell_scripts/test/interpolation.sh [net] [dataset] [norm] [foldername of trained model]
-bash ./shell_scripts/test/denoising.sh [net] [dataset] [norm] [foldername of trained model]
+bash ./shell_scripts/test/interpolation.sh [net] [dataset] [norm] [foldername of your trained model]
+bash ./shell_scripts/test/denoising.sh [net] [dataset] [norm] [foldername of your trained model]
 ```
 for interpolation or denoising,
 where 
@@ -326,8 +327,7 @@ where
 
 `[norm]: "TPNN", "absmax", or "none"`
 
-`[foldername of trained model]: modify this to the foldername 
-of your trained model`
+`[foldername of trained model]: modify this to the foldername of your trained model`
 
 Here, we provide example models (trained for 20 epochs) of the trained LMGM model, saved in './trained_models'.
 
